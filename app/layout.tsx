@@ -42,7 +42,7 @@ export default function RootLayout({
             disableTransitionOnChange
             storageKey="nexus-theme"
           >
-            <Toaster position="top-center" />
+             <Toaster richColors position="top-center" />
             {children}
           </ThemeProvider>
         </ConvexClientProvider>
