@@ -9,12 +9,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { SignOutButton, useUser } from "@clerk/clerk-react";
+import { SignOutButton, UserButton, useUser } from "@clerk/clerk-react";
 import { Avatar } from "@/components/ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
+import { useConvexAuth } from "convex/react";
 
 export function UserItem() {
   const { user } = useUser();
+  const { isAuthenticated, isLoading } = useConvexAuth();
+
 
   return (
     <DropdownMenu>
@@ -66,5 +69,6 @@ export function UserItem() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+
   );
 }
