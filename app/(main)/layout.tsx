@@ -4,13 +4,14 @@ import { useConvexAuth } from "convex/react";
 import { redirect } from "next/navigation";
 import { BeatLoader } from "react-spinners";
 import Navigation from "./_components/navigation";
+import Image from "next/image";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, isLoading } = useConvexAuth();
 
   if (isLoading) {
     return (
-      <div className="h-full w-full flex items-center justify-center">
+      <div className="h-full w-full flex items-center justify-center flex-col">
         <BeatLoader color="gray" />
       </div>
     );
