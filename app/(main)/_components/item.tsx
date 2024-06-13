@@ -33,7 +33,7 @@ interface ItemProps {
   level?: number;
   onExpand?: () => void;
   label: string;
-  onClickFn: () => void;
+  onClickFn?: () => void;
   icon: LucideIcon;
 }
 
@@ -54,18 +54,16 @@ const Item = ({
   const create = useMutation(api.documents.create);
   const archive = useMutation(api.documents.archive);
 
-
   const onArchive = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
-    if(!id) return;
-    const promise = archive({id});
+    if (!id) return;
+    const promise = archive({ id });
 
-    toast.promise(promise,{
+    toast.promise(promise, {
       loading: "Moving to trash...",
-      success:"Note moved to trash!",
-      error:"Failed to archive note."
-
-    })
+      success: "Note moved to trash!",
+      error: "Failed to archive note.",
+    });
   };
 
   const handleExpand = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -150,7 +148,9 @@ const Item = ({
                 Delete
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <div className="text-xs text-muted-foreground p-2">Last edited by: {user?.fullName}</div>
+              <div className="text-xs text-muted-foreground p-2">
+                Last edited by: {user?.fullName}
+              </div>
             </DropdownMenuContent>
           </DropdownMenu>
           <div
