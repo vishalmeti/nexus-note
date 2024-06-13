@@ -96,14 +96,14 @@ const TrashBox = () => {
               <div
                 onClick={(e) => onRestore(e, doc._id)}
                 role="button"
-                className="rounded-sm p-1 m-1 hover:bg-neutral-200"
+                className="rounded-sm p-1 m-1 hover:bg-neutral-200 dark:hover:bg-neutral-600"
               >
                 <Undo className="h-4 w-4 text-muted-foreground text-green-600" />
               </div>
               <ConfirmModal onConfirm={()=> onRemove(doc._id)} >
 
               <div
-                className="rounded-sm p-1 m-1 hover:bg-neutral-200"
+                className="rounded-sm p-1 m-1 hover:bg-neutral-200 dark:hover:bg-neutral-600"
                 role="button"
                 >
                 {" "}
