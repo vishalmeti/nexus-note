@@ -1,3 +1,4 @@
+import { ConfirmModal } from "@/components/modals/confirm-modal";
 import { Input } from "@/components/ui/input";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
@@ -75,7 +76,12 @@ const TrashBox = () => {
       </div>
       <div className="mt-2 px-1 pb-1">
         <p className="hidden last:flex text-xs flex-col items-center justify-center text-center text-muted-foreground pb-2">
-          <Image src="/Empty-amico.png" height={220} width={220} alt="Emtpy search"/>
+          <Image
+            src="/Empty-amico.png"
+            height={220}
+            width={220}
+            alt="Emtpy search"
+          />
           No documents found
         </p>
         {filteredDocuments?.map((doc) => (
@@ -94,7 +100,16 @@ const TrashBox = () => {
               >
                 <Undo className="h-4 w-4 text-muted-foreground text-green-600" />
               </div>
-              <div className="rounded-sm p-1 m-1 hover:bg-neutral-200" role="button"> <Trash className=" text-red-600 h-4 w-4 text-muted-foreground" /></div>
+              <ConfirmModal onConfirm={()=> onRemove(doc._id)} >
+
+              <div
+                className="rounded-sm p-1 m-1 hover:bg-neutral-200"
+                role="button"
+                >
+                {" "}
+                <Trash className=" text-red-600 h-4 w-4 text-muted-foreground" />
+              </div>
+                </ConfirmModal>
             </div>
           </div>
         ))}
