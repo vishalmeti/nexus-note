@@ -43,7 +43,7 @@ export default function RootLayout({
             disableTransitionOnChange
             storageKey="nexus-theme"
           >
-             <Toaster richColors position="top-center" />
+             <Toaster richColors position="top-right" duration={1000} />
              <ModalProvider />
             {children}
           </ThemeProvider>
