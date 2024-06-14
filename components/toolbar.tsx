@@ -20,6 +20,7 @@ const Toolbar = ({ initialData, preview }: ToolbarProps) => {
   const [value, setValue] = useState(initialData.title)
 
   const update = useMutation(api.documents.update)
+  const removeIcon = useMutation(api.documents.removeIcon);
 
   const enableInput = () => {
     if (preview) return
@@ -54,17 +55,17 @@ const Toolbar = ({ initialData, preview }: ToolbarProps) => {
     })
   }
 
-//   const onRemoveIcon = () => {
-//     removeIcon({
-//       id:initialData._id
-//     })
-//   }
+  const onRemoveIcon = () => {
+    removeIcon({
+      id:initialData._id
+    })
+  }
 
   return (
     <div className="pl-[54px] group relative">
       {!!initialData.icon && !preview && (
         <div className="flex items-center gap-x-2 group/icon pt-6">
-          <IconPicker onChange={() => {}}>
+          <IconPicker onChange={onIconSelect}>
             <p className="text-6xl hover:opacity-75 transition">
               {initialData.icon}
             </p>
@@ -74,7 +75,7 @@ const Toolbar = ({ initialData, preview }: ToolbarProps) => {
           text-muted-foreground text-xs"
             variant="outline"
             size="icon"
-            onClick={() => {}}
+            onClick={onRemoveIcon}
           >
             <X className="w-4 h-4" />
           </Button>
@@ -88,7 +89,7 @@ const Toolbar = ({ initialData, preview }: ToolbarProps) => {
 
       <div className="opacity-0 group-hover:opacity-100 flex items-center gap-x-1 py-4">
         {!initialData.icon && !preview && (
-          <IconPicker asChild onChange={() => {}}>
+          <IconPicker asChild onChange={onIconSelect}>
             <Button
               className="text-muted-foreground text-xs"
               variant="outline"
