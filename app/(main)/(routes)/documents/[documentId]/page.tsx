@@ -1,11 +1,17 @@
 "use client";
 
 import { Cover } from "@/app/(main)/_components/cover";
+import Editor from "@/app/(main)/_components/editor";
 import Toolbar from "@/components/toolbar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
+
+import "@blocknote/core/fonts/inter.css";
+import { useCreateBlockNote } from "@blocknote/react";
+import { BlockNoteView } from "@blocknote/mantine";
+import "@blocknote/mantine/style.css";
 
 interface DocumentIdPageProps {
   params: {
@@ -19,6 +25,7 @@ const Page = ({ params }: DocumentIdPageProps) => {
   });
 
   const update = useMutation(api.documents.update)
+  const editor = useCreateBlockNote();
 
   const onChange = (content:string) => {
     update({
@@ -49,7 +56,7 @@ const Page = ({ params }: DocumentIdPageProps) => {
     <Cover preview url={document?.coverImage} />
     <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
       <Toolbar initialData={document}/>
-      {/* <Editor editable={false} onChange={onChange} initialContent={document.content} /> */}
+      <Editor editable={false} onChange={onChange} initialContent={document.content} />
     </div>
   </div>;
 };

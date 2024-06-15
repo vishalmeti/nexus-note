@@ -1,43 +1,40 @@
-'use client'	
+"use client";
+import "@blocknote/core/fonts/inter.css";
+import { useCreateBlockNote } from "@blocknote/react";
+import { BlockNoteView } from "@blocknote/mantine";
+import "@blocknote/mantine/style.css";
+import {PartialBlock } from "@blocknote/core";
+import React, { useEffect, useRef } from 'react';
 
-import {BlockNoteEditor,PartialBlock} from '@blocknote/core'
-import {BlockNoteView,useBlockNote} from '@blocknote/react'
-import '@blocknote/core/style.css'
-import { useTheme } from "next-themes"
-
-import { useEdgeStore } from "@/lib/edgestore"
-
-interface EditorProps{
-  onChange:(value:string) => void
-  initialContent?:string
-  editable?:boolean
+interface EditorProps {
+  editable: boolean;
+  onChange: (content: string) => void;
+  initialContent: any;
 }
 
-function Editor ({onChange,initialContent,editable}:EditorProps) {
+const Editor: React.FC<EditorProps> = ({ editable, onChange, initialContent }) => {
+  const contentRef = useRef<HTMLDivElement>(null);
 
-  const {resolvedTheme} = useTheme()
-  const {edgestore} = useEdgeStore()
+  useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.innerHTML = initialContent;
+    }
+  }, [initialContent]);
 
-  const handleUpload = async (file:File) => {
-    const response = await edgestore.publicFiles.upload({file})
+  const handleInput = () => {
+    onChange(JSON.stringify(editor.document,null,2))
+  };
 
-    return response.url
-  }
+  const editor = useCreateBlockNote({
+    initialContent: initialContent ? JSON.parse(initialContent) as PartialBlock[] : undefined,
+    
+  });
 
-  const editor:BlockNoteEditor = useBlockNote({
-    editable,
-    initialContent:initialContent ? JSON.parse(initialContent) as PartialBlock[] : undefined,
-    onEditorContentChange:(editor) => {
-      onChange(JSON.stringify(editor.topLevelBlocks,null,2))
-    },
-    uploadFile:handleUpload
-  })
+  return <BlockNoteView editor={editor} onChange={handleInput}/>
+};
 
-return (
-    <div>
-      <BlockNoteView editor={editor} theme={resolvedTheme === 'dark' ? 'dark' : 'light'}/>
-    </div>
-  )
-}
+export default Editor;
 
-export default Editor
+
+ 
+ 
