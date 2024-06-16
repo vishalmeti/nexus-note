@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useMutation } from "convex/react"
-import { Check, Copy, Globe } from "lucide-react"
+import { Check, Copy, ExternalLink, Globe, Send } from "lucide-react"
 import { toast } from "sonner"
 
 import { Doc } from "@/convex/_generated/dataModel"
@@ -67,6 +67,10 @@ export function Publish ({initialData}:PublishProps) {
     }, 1000);
   }
 
+  const onPublishOpen = () =>{
+    window.open(url, "_blank")
+  }
+
 return (
     <Popover>
       <PopoverTrigger asChild>
@@ -87,6 +91,7 @@ return (
             <div className="flex items-center">
               <input className="flex-1 px-2 text-xs border rounded-l-md h-8 bg-muted truncate"
                value={url} disabled/>
+               <div className="flex gap-1 justify-between items-center">
                <Button className="h-8 rounded-l-none" onClick={onCopy} disabled={copied}>
                 {copied ? (
                   <Check className="w-4 h-4"/>
@@ -94,6 +99,10 @@ return (
                   <Copy className="w-4 h-4"/>
                 )}
                </Button>
+               <Button className="h-8 rounded" onClick={onPublishOpen} disabled={copied}>
+                <ExternalLink className="w-4 h-4" />
+               </Button>
+               </div>
             </div>
             <Button className="w-full text-xs" size='sm' disabled={isSubmitting} onClick={onUnPublish}>
               Unpublish
