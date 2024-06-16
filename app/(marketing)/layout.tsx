@@ -8,7 +8,7 @@ export default function MarketingLayout({
   return (
     <div className="h-[100vh] dark:bg-[#0a0a0a]">
       <Navbar />
-      <main className="h-full pt-40">{children}</main>
+      <main className="h-full">{children}</main>
     </div>
   );
 }
