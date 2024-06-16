@@ -4,7 +4,8 @@ import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import {PartialBlock } from "@blocknote/core";
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useTheme } from "next-themes";
 
 interface EditorProps {
   editable: boolean;
@@ -14,6 +15,7 @@ interface EditorProps {
 
 const Editor: React.FC<EditorProps> = ({ editable, onChange, initialContent }) => {
   const contentRef = useRef<HTMLDivElement>(null);
+  const {resolvedTheme} = useTheme()
 
   useEffect(() => {
     if (contentRef.current) {
@@ -30,7 +32,7 @@ const Editor: React.FC<EditorProps> = ({ editable, onChange, initialContent }) =
     
   });
 
-  return <BlockNoteView editor={editor} onChange={handleInput}/>
+  return <BlockNoteView theme={resolvedTheme === 'dark' ? 'dark' : 'light'} editor={editor} onChange={handleInput}/>
 };
 
 export default Editor;
