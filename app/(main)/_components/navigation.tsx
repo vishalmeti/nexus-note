@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import {
   ChevronsLeft,
+  Home,
   MenuIcon,
   Plus,
   PlusCircle,
@@ -28,11 +29,13 @@ import TrashBox from "./trash-box";
 import { useSearch } from "@/hooks/use-search";
 import { useSettings } from "@/hooks/use-settings";
 import Navbar from "./navbar";
+import { useRouter } from "next/navigation";
 
 const Navigation = () => {
   const search = useSearch();
   const settings = useSettings();
   const pathname = usePathname();
+  const router = useRouter()
   const params = useParams();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const create = useMutation(api.documents.create);
@@ -156,6 +159,7 @@ const Navigation = () => {
             isSearch
             onClickFn={search.onOpen}
           />
+          <Item label="Home" icon={Home} onClickFn={()=>{router.push("/")}} />
           <Item label="Settings" icon={Settings} onClickFn={settings.onOpen} />
           <Item onClickFn={handleCreate} label="New Page" icon={PlusCircle} />
         </div>
