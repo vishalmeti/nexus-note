@@ -32,7 +32,7 @@ const Editor: React.FC<EditorProps> = ({ editable, onChange, initialContent }) =
     
   });
 
-  return <BlockNoteView theme={resolvedTheme === 'dark' ? 'dark' : 'light'} editor={editor} onChange={handleInput}/>
+  return <BlockNoteView editable={editable} theme={resolvedTheme === 'dark' ? 'dark' : 'light'} editor={editor} onChange={handleInput}/>
 };
 
 export default Editor;
